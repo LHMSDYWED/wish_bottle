@@ -104,6 +104,39 @@ public class DateUtil {
         return maxDate;
     }
 
+
+    /**
+     * 获取格式化时间yyMMdd
+     *
+     * @return
+     */
+    public static String formatTimeForYyMmDd() {
+        SimpleDateFormat sdf = new SimpleDateFormat ("yyMMdd");
+        Date date = new Date ();
+        return sdf.format (date);
+    }
+
+    /**
+     * 获取格式化时间yyyyMMddHHmmss
+     *
+     * @return
+     */
+    public static String getTimeStamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMddHHmmss");
+        Date date = new Date ();
+        return sdf.format (date);
+    }
+
+    /**
+     * 获取格式化时间yyyyMMdd
+     *
+     * @return
+     */
+    public static String getNowTimeString() {
+        SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
+        Date date = new Date ();
+        return sdf.format (date);
+    }
     /**
      * 获取某月的最后一天
      *

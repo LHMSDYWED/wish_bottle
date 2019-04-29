@@ -23,7 +23,7 @@ public class MemberController {
     private MemberService memberService;
 
     @ApiOperation(httpMethod = "GET",value = "会员：登录")
-    @GetMapping(value = "/loginMember/{registerPhone}{loginPassWord}")
+    @GetMapping(value = "/loginMember/{registerPhone}/{loginPassWord}")
     public Result loginMember(@ApiParam("registerPhone") @PathVariable String registerPhone, @ApiParam("loginPassWord") @PathVariable String loginPassWord){
         return memberService.loginMember(registerPhone,loginPassWord);
     }

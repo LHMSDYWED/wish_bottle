@@ -8,6 +8,7 @@ package com.lhm.star.utils.memberutil;
 import com.lhm.star.utils.common.CreateNo;
 import com.lhm.star.utils.common.DateUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -23,7 +24,7 @@ public class MemberUtil {
 	 * @return
 	 */
 	public static String getMemberUuid() {
-		String kh = "KH"+ DateUtil.formatDate(new Date());
+		String kh = "KH"+ DateUtil.formatTimeForYyMmDd();
 		return CreateNo.getInstance().GenerateNo(kh, 6);
 	}
 
@@ -44,6 +45,7 @@ public class MemberUtil {
 		String jcda = "JCDA"+memberUuid.substring(memberUuid.length()-8);
 		return CreateNo.getInstance().GenerateNo(jcda, 6);
 	}
+
 
 
 }
