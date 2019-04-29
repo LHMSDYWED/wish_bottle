@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhm.star.mapper.MemberMapper">
+  <resultMap id="BaseResultMap" type="com.lhm.star.entity.model.Member">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="member_uuid" jdbcType="VARCHAR" property="member_uuid" />
+    <result column="member_name" jdbcType="VARCHAR" property="member_name" />
+    <result column="member_nickname" jdbcType="VARCHAR" property="member_nickname" />
+    <result column="login_name" jdbcType="VARCHAR" property="login_name" />
+    <result column="login_password" jdbcType="VARCHAR" property="login_password" />
+    <result column="register_phone" jdbcType="VARCHAR" property="register_phone" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, member_uuid, member_name, member_nickname, login_name, login_password, register_phone, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lhm.star.entity.model.Member" useGeneratedKeys="true">
+    insert into member (member_uuid, member_name, member_nickname, 
+      login_name, login_password, register_phone, 
+      create_time, update_time)
+    values (#{member_uuid,jdbcType=VARCHAR}, #{member_name,jdbcType=VARCHAR}, #{member_nickname,jdbcType=VARCHAR}, 
+      #{login_name,jdbcType=VARCHAR}, #{login_password,jdbcType=VARCHAR}, #{register_phone,jdbcType=VARCHAR}, 
+      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lhm.star.entity.model.Member" useGeneratedKeys="true">
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="member_uuid != null">
+        member_uuid,
+      </if>
+      <if test="member_name != null">
+        member_name,
+      </if>
+      <if test="member_nickname != null">
+        member_nickname,
+      </if>
+      <if test="login_name != null">
+        login_name,
+      </if>
+      <if test="login_password != null">
+        login_password,
+      </if>
+      <if test="register_phone != null">
+        register_phone,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="update_time != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="member_uuid != null">
+        #{member_uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="member_name != null">
+        #{member_name,jdbcType=VARCHAR},
+      </if>
+      <if test="member_nickname != null">
+        #{member_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="login_name != null">
+        #{login_name,jdbcType=VARCHAR},
+      </if>
+      <if test="login_password != null">
+        #{login_password,jdbcType=VARCHAR},
+      </if>
+      <if test="register_phone != null">
+        #{register_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhm.star.entity.model.Member">
+    update member
+    <set>
+      <if test="member_uuid != null">
+        member_uuid = #{member_uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="member_name != null">
+        member_name = #{member_name,jdbcType=VARCHAR},
+      </if>
+      <if test="member_nickname != null">
+        member_nickname = #{member_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="login_name != null">
+        login_name = #{login_name,jdbcType=VARCHAR},
+      </if>
+      <if test="login_password != null">
+        login_password = #{login_password,jdbcType=VARCHAR},
+      </if>
+      <if test="register_phone != null">
+        register_phone = #{register_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhm.star.entity.model.Member">
+    update member
+    set member_uuid = #{member_uuid,jdbcType=VARCHAR},
+      member_name = #{member_name,jdbcType=VARCHAR},
+      member_nickname = #{member_nickname,jdbcType=VARCHAR},
+      login_name = #{login_name,jdbcType=VARCHAR},
+      login_password = #{login_password,jdbcType=VARCHAR},
+      register_phone = #{register_phone,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
