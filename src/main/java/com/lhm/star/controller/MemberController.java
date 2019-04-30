@@ -1,5 +1,6 @@
 package com.lhm.star.controller;
 
+import com.lhm.star.annotation.UserLoginToken;
 import com.lhm.star.entity.model.Member;
 import com.lhm.star.service.MemberService;
 import com.lhm.star.utils.common.Result;
@@ -22,13 +23,17 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @ApiOperation(httpMethod = "GET",value = "会员：登录")
+    @ApiOperation(httpMethod = "GET",value = "会员: 登录")
     @GetMapping(value = "/loginMember/{registerPhone}/{loginPassWord}")
     public Result loginMember(@ApiParam("registerPhone") @PathVariable String registerPhone, @ApiParam("loginPassWord") @PathVariable String loginPassWord){
         return memberService.loginMember(registerPhone,loginPassWord);
     }
-
-    @ApiOperation(httpMethod = "POST",value = "会员“注册")
+    @UserLoginToken
+    @GetMapping("/getMessage")
+    public String getMessage(){
+        return "你已通过验证";
+    }
+    @ApiOperation(httpMethod = "POST",value = "会员: 注册")
     @PostMapping("/insertMember")
     public Result insertMember(@ApiParam("会员") @RequestBody Member member){
         return memberService.insertMember(member);

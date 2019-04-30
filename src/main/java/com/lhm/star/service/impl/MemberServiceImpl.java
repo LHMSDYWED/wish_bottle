@@ -1,6 +1,8 @@
 package com.lhm.star.service.impl;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
+
+
+import com.alibaba.fastjson.JSONObject;
 import com.lhm.star.entity.model.Member;
 import com.lhm.star.mapper.MemberMapper;
 import com.lhm.star.service.MemberService;
@@ -12,6 +14,7 @@ import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * @author lhm
@@ -24,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberMapper memberMapper;
 
+
     /**
      * 用户登录
      * @param registerPhone
@@ -32,15 +36,16 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public Result loginMember(String registerPhone, String loginPassWord) {
+
         Member member= memberMapper.selectByRegisterPhone(registerPhone);
-        System.out.println(member);
         String pwd=member.getLogin_password();
-        System.out.println(pwd);
         if(pwd!=null&&pwd.equals(loginPassWord)){
-            return  new Result(true, StatusCode.OK,"登录成功" );
+            String token=member.getToken(member);
+            return  new Result(true, StatusCode.OK,"登录成功",token);
         }else {
             return new Result(false,StatusCode.LOGINERROR,"请重新登录");
         }
+
     }
 
     /**

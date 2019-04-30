@@ -14,6 +14,11 @@ server:
 
 
 spring:
+  elasticsearch:
+    jest:
+      uris:
+        - http://192.168.98.134:9200 #es服务器的地址
+      read-timeout: 5000
   http:
     encoding:
       charset: UTF-8
@@ -21,7 +26,6 @@ spring:
       force: true
   datasource:
     druid:
-
       url: jdbc:mysql://localhost:3306/wish_bottle?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       username: root
       password: root
