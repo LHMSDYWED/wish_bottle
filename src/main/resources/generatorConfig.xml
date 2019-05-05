@@ -38,7 +38,8 @@
         </javaClientGenerator>
 
         <!-- 要生成哪些表 -->
-        <table tableName="member" domainObjectName="Member" enableCountByExample="false"
+
+        <table tableName="photo" domainObjectName="Photo" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
             <property name="my.isgen.usekeys" value="true"/>

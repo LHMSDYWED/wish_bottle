@@ -38,4 +38,5 @@ public class MemberController {
     public Result insertMember(@ApiParam("会员") @RequestBody Member member){
         return memberService.insertMember(member);
     }
+
 }

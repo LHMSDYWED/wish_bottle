@@ -3,6 +3,7 @@ package com.lhm.star.service.impl;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.auth0.jwt.JWT;
 import com.lhm.star.entity.model.Member;
 import com.lhm.star.mapper.MemberMapper;
 import com.lhm.star.service.MemberService;
@@ -38,13 +39,16 @@ public class MemberServiceImpl implements MemberService {
     public Result loginMember(String registerPhone, String loginPassWord) {
 
         Member member= memberMapper.selectByRegisterPhone(registerPhone);
-        String pwd=member.getLogin_password();
-        if(pwd!=null&&pwd.equals(loginPassWord)){
-            String token=member.getToken(member);
-            return  new Result(true, StatusCode.OK,"登录成功",token);
-        }else {
-            return new Result(false,StatusCode.LOGINERROR,"请重新登录");
+        if(member!=null){
+            String pwd=member.getLogin_password();
+            if(pwd.equals(loginPassWord)){
+                String token=member.getToken(member);
+                return  new Result(true, StatusCode.OK,"登录成功",token);
+            }else {
+                return new Result(false,StatusCode.LOGINERROR,"请重新登录");
+            }
         }
+        return  new Result(false,StatusCode.ACCESSERROR,"该手机号未注册，请先注册");
 
     }
 
