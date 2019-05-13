@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhm.star.mapper.SeckillOrderMapper">
+  <resultMap id="BaseResultMap" type="com.lhm.star.entity.model.SeckillOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="seckill_id" jdbcType="VARCHAR" property="seckillId" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, seckill_id, money, user_phone, status, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from seckill_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from seckill_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lhm.star.entity.model.SeckillOrder" useGeneratedKeys="true">
+    insert into seckill_order (seckill_id, money, user_phone, 
+      status, create_time)
+    values (#{seckillId,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, #{userPhone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lhm.star.entity.model.SeckillOrder" useGeneratedKeys="true">
+    insert into seckill_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seckillId != null">
+        seckill_id,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seckillId != null">
+        #{seckillId,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhm.star.entity.model.SeckillOrder">
+    update seckill_order
+    <set>
+      <if test="seckillId != null">
+        seckill_id = #{seckillId,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhm.star.entity.model.SeckillOrder">
+    update seckill_order
+    set seckill_id = #{seckillId,jdbcType=VARCHAR},
+      money = #{money,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
