@@ -25,5 +25,5 @@ public interface MemberMapper {
      * @param registerPhone
      * @return
      */
-    Member selectByRegisterPhone(@Param("register_phone") String registerPhone);
+    Member selectByRegisterPhone(String registerPhone);
 }

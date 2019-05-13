@@ -138,6 +138,6 @@
     from
     member
     where
-    register_phone = #{register_phone,jdbcType=VARCHAR}
+    register_phone = #{registerPhone,jdbcType=VARCHAR}
   </select>
 </mapper>

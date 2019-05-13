@@ -40,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
 
         Member member= memberMapper.selectByRegisterPhone(registerPhone);
         if(member!=null){
-            String pwd=member.getLogin_password();
+            String pwd=member.getLoginPassword();
             if(pwd.equals(loginPassWord)){
                 String token=member.getToken(member);
                 return  new Result(true, StatusCode.OK,"登录成功",token);
@@ -60,8 +60,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Result insertMember(Member member) {
         //插入一条数据  先判断此手机号是否存在  存在则登录 不存在 则注册
-        String registerPhone=member.getRegister_phone();
-        String pwd=member.getLogin_password();
+        String registerPhone=member.getRegisterPhone();
+        String pwd=member.getLoginPassword();
         Member member1=memberMapper.selectByRegisterPhone(registerPhone);
         //说明此手机号已经注册
         if(member1!=null){
@@ -69,8 +69,8 @@ public class MemberServiceImpl implements MemberService {
         }
         //直接注册
       else {
-          member.setMember_uuid(MemberUtil.getMemberUuid());
-          member.setLogin_password(MD5Util.getMD5(member.getLogin_password()));
+          member.setMemberUuid(MemberUtil.getMemberUuid());
+          member.setLoginPassword(MD5Util.getMD5(member.getLoginPassword()));
             memberMapper.insertSelective(member);
             return new Result(true,StatusCode.OK,"注册成功");
         }

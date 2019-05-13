@@ -20,21 +20,21 @@ import java.util.Date;
 public class Member implements Serializable {
     private Integer id;
 
-    private String member_uuid;
+    private String memberUuid;
 
-    private String member_name;
+    private String memberName;
 
-    private String member_nickname;
+    private String memberNickname;
 
-    private String login_name;
+    private String loginName;
 
-    private String login_password;
+    private String loginPassword;
 
-    private String register_phone;
+    private String registerPhone;
 
-    private Date create_time;
+    private Date createTime;
 
-    private Date update_time;
+    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class Member implements Serializable {
 //withAudience()存入需要保存在token的信息，这里我把用户ID存入token中
     public String getToken(Member member){
         String token=" ";
-        token= JWT.create().withAudience(member.getRegister_phone()).sign(Algorithm.HMAC256(member.getLogin_password()));
+        token= JWT.create().withAudience(member.getRegisterPhone()).sign(Algorithm.HMAC256(member.getLoginPassword()));
         return token;
     }
 }

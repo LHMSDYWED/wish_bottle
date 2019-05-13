@@ -39,11 +39,16 @@
 
         <!-- 要生成哪些表 -->
 
-        <table tableName="photo" domainObjectName="Photo" enableCountByExample="false"
+        <table tableName="seckill" domainObjectName="Seckill" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
             <property name="my.isgen.usekeys" value="true"/>
-            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="seckill_order" domainObjectName="SeckillOrder" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>
