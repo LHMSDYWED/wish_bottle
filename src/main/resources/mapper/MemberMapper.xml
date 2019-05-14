@@ -3,18 +3,21 @@
 <mapper namespace="com.lhm.star.mapper.MemberMapper">
   <resultMap id="BaseResultMap" type="com.lhm.star.entity.model.Member">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="member_uuid" jdbcType="VARCHAR" property="member_uuid" />
-    <result column="member_name" jdbcType="VARCHAR" property="member_name" />
-    <result column="member_nickname" jdbcType="VARCHAR" property="member_nickname" />
-    <result column="login_name" jdbcType="VARCHAR" property="login_name" />
-    <result column="login_password" jdbcType="VARCHAR" property="login_password" />
-    <result column="register_phone" jdbcType="VARCHAR" property="register_phone" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
+    <result column="member_uuid" jdbcType="VARCHAR" property="memberUuid" />
+    <result column="member_image" jdbcType="VARCHAR" property="memberImage" />
+    <result column="member_name" jdbcType="VARCHAR" property="memberName" />
+    <result column="member_nickname" jdbcType="VARCHAR" property="memberNickname" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
+    <result column="register_phone" jdbcType="VARCHAR" property="registerPhone" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, member_uuid, member_name, member_nickname, login_name, login_password, register_phone, 
-    create_time, update_time
+    id, member_uuid, member_image, member_name, member_nickname, login_name, login_password, 
+    register_phone, salt, email, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,110 +30,143 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lhm.star.entity.model.Member" useGeneratedKeys="true">
-    insert into member (member_uuid, member_name, member_nickname, 
-      login_name, login_password, register_phone, 
+    insert into member (member_uuid, member_image, member_name, 
+      member_nickname, login_name, login_password, 
+      register_phone, salt, email, 
       create_time, update_time)
-    values (#{member_uuid,jdbcType=VARCHAR}, #{member_name,jdbcType=VARCHAR}, #{member_nickname,jdbcType=VARCHAR}, 
-      #{login_name,jdbcType=VARCHAR}, #{login_password,jdbcType=VARCHAR}, #{register_phone,jdbcType=VARCHAR}, 
-      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP})
+    values (#{memberUuid,jdbcType=VARCHAR}, #{memberImage,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, 
+      #{memberNickname,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR}, 
+      #{registerPhone,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lhm.star.entity.model.Member" useGeneratedKeys="true">
     insert into member
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="member_uuid != null">
+      <if test="memberUuid != null">
         member_uuid,
       </if>
-      <if test="member_name != null">
+      <if test="memberImage != null">
+        member_image,
+      </if>
+      <if test="memberName != null">
         member_name,
       </if>
-      <if test="member_nickname != null">
+      <if test="memberNickname != null">
         member_nickname,
       </if>
-      <if test="login_name != null">
+      <if test="loginName != null">
         login_name,
       </if>
-      <if test="login_password != null">
+      <if test="loginPassword != null">
         login_password,
       </if>
-      <if test="register_phone != null">
+      <if test="registerPhone != null">
         register_phone,
       </if>
-      <if test="create_time != null">
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="createTime != null">
         create_time,
       </if>
-      <if test="update_time != null">
+      <if test="updateTime != null">
         update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="member_uuid != null">
-        #{member_uuid,jdbcType=VARCHAR},
+      <if test="memberUuid != null">
+        #{memberUuid,jdbcType=VARCHAR},
       </if>
-      <if test="member_name != null">
-        #{member_name,jdbcType=VARCHAR},
+      <if test="memberImage != null">
+        #{memberImage,jdbcType=VARCHAR},
       </if>
-      <if test="member_nickname != null">
-        #{member_nickname,jdbcType=VARCHAR},
+      <if test="memberName != null">
+        #{memberName,jdbcType=VARCHAR},
       </if>
-      <if test="login_name != null">
-        #{login_name,jdbcType=VARCHAR},
+      <if test="memberNickname != null">
+        #{memberNickname,jdbcType=VARCHAR},
       </if>
-      <if test="login_password != null">
-        #{login_password,jdbcType=VARCHAR},
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="register_phone != null">
-        #{register_phone,jdbcType=VARCHAR},
+      <if test="loginPassword != null">
+        #{loginPassword,jdbcType=VARCHAR},
       </if>
-      <if test="create_time != null">
-        #{create_time,jdbcType=TIMESTAMP},
+      <if test="registerPhone != null">
+        #{registerPhone,jdbcType=VARCHAR},
       </if>
-      <if test="update_time != null">
-        #{update_time,jdbcType=TIMESTAMP},
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lhm.star.entity.model.Member">
     update member
     <set>
-      <if test="member_uuid != null">
-        member_uuid = #{member_uuid,jdbcType=VARCHAR},
+      <if test="memberUuid != null">
+        member_uuid = #{memberUuid,jdbcType=VARCHAR},
       </if>
-      <if test="member_name != null">
-        member_name = #{member_name,jdbcType=VARCHAR},
+      <if test="memberImage != null">
+        member_image = #{memberImage,jdbcType=VARCHAR},
       </if>
-      <if test="member_nickname != null">
-        member_nickname = #{member_nickname,jdbcType=VARCHAR},
+      <if test="memberName != null">
+        member_name = #{memberName,jdbcType=VARCHAR},
       </if>
-      <if test="login_name != null">
-        login_name = #{login_name,jdbcType=VARCHAR},
+      <if test="memberNickname != null">
+        member_nickname = #{memberNickname,jdbcType=VARCHAR},
       </if>
-      <if test="login_password != null">
-        login_password = #{login_password,jdbcType=VARCHAR},
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="register_phone != null">
-        register_phone = #{register_phone,jdbcType=VARCHAR},
+      <if test="loginPassword != null">
+        login_password = #{loginPassword,jdbcType=VARCHAR},
       </if>
-      <if test="create_time != null">
-        create_time = #{create_time,jdbcType=TIMESTAMP},
+      <if test="registerPhone != null">
+        register_phone = #{registerPhone,jdbcType=VARCHAR},
       </if>
-      <if test="update_time != null">
-        update_time = #{update_time,jdbcType=TIMESTAMP},
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lhm.star.entity.model.Member">
     update member
-    set member_uuid = #{member_uuid,jdbcType=VARCHAR},
-      member_name = #{member_name,jdbcType=VARCHAR},
-      member_nickname = #{member_nickname,jdbcType=VARCHAR},
-      login_name = #{login_name,jdbcType=VARCHAR},
-      login_password = #{login_password,jdbcType=VARCHAR},
-      register_phone = #{register_phone,jdbcType=VARCHAR},
-      create_time = #{create_time,jdbcType=TIMESTAMP},
-      update_time = #{update_time,jdbcType=TIMESTAMP}
+    set member_uuid = #{memberUuid,jdbcType=VARCHAR},
+      member_image = #{memberImage,jdbcType=VARCHAR},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      member_nickname = #{memberNickname,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      register_phone = #{registerPhone,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 
   <select id="selectByRegisterPhone" resultMap="BaseResultMap">
     select

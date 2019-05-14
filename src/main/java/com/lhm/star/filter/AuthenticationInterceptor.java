@@ -9,7 +9,6 @@ import com.lhm.star.annotation.PassToken;
 import com.lhm.star.annotation.UserLoginToken;
 import com.lhm.star.entity.model.Member;
 import com.lhm.star.mapper.MemberMapper;
-import com.lhm.star.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,10 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 
 /**

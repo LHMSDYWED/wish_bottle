@@ -2,7 +2,7 @@ package com.lhm.star.mapper;
 
 import com.lhm.star.entity.model.Member;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+
 
 @Mapper
 public interface MemberMapper {
@@ -18,7 +18,6 @@ public interface MemberMapper {
 
     int updateByPrimaryKey(Member record);
 
-    //登录  注册  密码加密MD5  memberuuid生成
 
     /**
      * 通过注册手机号查询member

@@ -2,20 +2,22 @@ package com.lhm.star.service.impl;
 
 
 
-import com.alibaba.fastjson.JSONObject;
-import com.auth0.jwt.JWT;
 import com.lhm.star.entity.model.Member;
 import com.lhm.star.mapper.MemberMapper;
 import com.lhm.star.service.MemberService;
 import com.lhm.star.utils.common.MD5Util;
 import com.lhm.star.utils.common.Result;
 import com.lhm.star.utils.common.StatusCode;
+import com.lhm.star.utils.exception.RRException;
 import com.lhm.star.utils.memberutil.MemberUtil;
-import org.springframework.beans.PropertyEditorRegistrar;
+import com.lhm.star.utils.shiro.PasswordUtil;
+import com.lhm.star.utils.shiro.RandomUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Date;
 
 /**
  * @author lhm
@@ -41,7 +43,8 @@ public class MemberServiceImpl implements MemberService {
         Member member= memberMapper.selectByRegisterPhone(registerPhone);
         if(member!=null){
             String pwd=member.getLoginPassword();
-            if(pwd.equals(loginPassWord)){
+            String md5Password=MD5Util.getMD5(loginPassWord+member.getSalt());
+            if(pwd.equals(md5Password)){
                 String token=member.getToken(member);
                 return  new Result(true, StatusCode.OK,"登录成功",token);
             }else {
@@ -60,20 +63,27 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Result insertMember(Member member) {
         //插入一条数据  先判断此手机号是否存在  存在则登录 不存在 则注册
-        String registerPhone=member.getRegisterPhone();
-        String pwd=member.getLoginPassword();
-        Member member1=memberMapper.selectByRegisterPhone(registerPhone);
-        //说明此手机号已经注册
-        if(member1!=null){
-            return  new Result(false,StatusCode.ACCESSERROR,"此手机号已注册，请直接登录");
-        }
-        //直接注册
-      else {
-          member.setMemberUuid(MemberUtil.getMemberUuid());
-          member.setLoginPassword(MD5Util.getMD5(member.getLoginPassword()));
-            memberMapper.insertSelective(member);
-            return new Result(true,StatusCode.OK,"注册成功");
-        }
+        validateMember(member);
+        String salt= RandomUtil.getSalt();
+        member.setSalt(salt);
+        String loginPassword= PasswordUtil.encrypt(member.getLoginPassword(),salt);
+        member.setLoginPassword(loginPassword);
+        member.setCreateTime(new Date());
+        memberMapper.insertSelective(member);
+        return new Result(true,StatusCode.OK,"注册成功");
 
+    }
+
+
+    private  void validateMember(Member member){
+        if(member==null){
+            throw new RRException("用户不存在");
+        }
+        if(StringUtils.isBlank(member.getRegisterPhone())){
+            throw  new RRException("注册手机不能为空");
+        }
+        if(StringUtils.isBlank(member.getLoginPassword())){
+            throw new  RRException("登录密码不能为空");
+        }
     }
 }
