@@ -118,9 +118,9 @@ public class BaseRealm extends AuthorizingRealm {
             log.info("Use IdPasswordToken for authentication");
             //ID密码校验
             IdPasswordToken token = (IdPasswordToken) authenticationToken;
-            member = shiroService.login(String.valueOf(token.getId()), null, String.valueOf(token.getPassword()));
+            member = shiroService.login(String.valueOf(token.getRegister()), null, String.valueOf(token.getPassword()));
             if (member != null) {
-                authenticationInfo = new SimpleAuthenticationInfo(token.getId(), token.getPassword(), this.getName());
+                authenticationInfo = new SimpleAuthenticationInfo(token.getRegister(), token.getPassword(), this.getName());
             }
         }
 
